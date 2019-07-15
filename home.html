@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="home.css"> 
+<link href="https://fonts.googleapis.com/css?family=oswald" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>home page</title>
+</head>
+
+<body>
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-12 red" style="padding-top:30px;">THREE</div>
+        </div>
+        <div class="row">
+            <div class="col-12 yellow">COLOR</div>
+        </div>
+        <div class="row">
+            <div class="col-12 blue">CHALLENGE</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-light hbutton" style="margin-top:50px;" onClick = "window.location = 'game.html'"> NEW GAME </button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-light hbutton" id="lead"> 
+                    LEADERBOARD 
+                </button>
+                
+                <div id="myLeadModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" id="close3">&times;</span>
+                          
+                          <div class="container">
+                            <div class="row">
+                                <div class="col-12 instBox">
+                                    LEADERBOARD
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align: left;">
+                                    Level: 
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-light hbutton" id="inst"> 
+                    INSTRUCTIONS 
+                </button>
+                
+                <div id="myInstModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" id="close1">&times;</span>
+                          
+                          <div class="container">
+                            <div class="row">
+                                <div class="col-12 instBox">
+                                    INSTRUCTIONS:
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align: left;">
+                                    Color in the picture such that no adjacent portions are the same color. Make sure to do so before the timer runs out !
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-light hbutton" id="settingsbtn"> SETTINGS </button>
+                    <div id="mySettingsModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" id="close2">&times;</span>
+                          
+                          <div class="container">
+                            <div class="row">
+                                <div class="col-12 instBox">
+                                    SETTINGS:
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align: left;">
+                                    level:
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    var instmodal = document.getElementById("myInstModal");
+    var instbtn = document.getElementById("inst");
+    var span1 = document.getElementById("close1");
+    
+    var setmod = document.getElementById("mySettingsModal");
+    var settingsbtn = document.getElementById("settingsbtn");
+    var span2 = document.getElementById("close2");
+    
+    var leadmod = document.getElementById("myLeadModal");
+    var leadbtn = document.getElementById("lead");
+    var span3 = document.getElementById("close3");
+
+    instbtn.onclick = function() {
+      instmodal.style.display = "block";
+    }
+
+    settingsbtn.onclick = function() {
+      setmod.style.display = "block";
+    }
+    
+    leadbtn.onclick = function() {
+      leadmod.style.display = "block";
+    }
+    
+    span1.onclick = function() {
+      instmodal.style.display = "none";
+    }
+
+    span2.onclick = function() {
+      setmod.style.display = "none";
+    }
+    
+    span3.onclick = function() {
+      leadmod.style.display = "none";
+    }
+    
+    window.onclick = function(event) {
+      if (event.target == instmodal) {
+        instmodal.style.display = "none";
+      }
+        
+      if (event.target == setmod) {
+        setmod.style.display = "none";
+      }
+        
+      if (event.target == leadmod) {
+        leadmod.style.display = "none";
+      }
+    }    
+
+    
+</script>

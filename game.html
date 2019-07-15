@@ -1,0 +1,214 @@
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="game.css"> 
+<link href="https://fonts.googleapis.com/css?family=oswald" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>game page</title>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <button class="btn" onClick = "window.location = 'home.html'" style="background-color: white;"><i class="fa fa-home" ></i> Home</button>
+            </div>
+            <div class="col-6" style="text-align: center;">
+                <div id="clockdiv" class="timer"></div>
+            </div>
+            <div class="col-3" >
+                <div class="row">
+                    <div class="col-6" style="text-align: left;">
+                        
+                        <button class="btn" style="margin-bottom: 20px; background-color: white;" id="pause"><i class="fa fa-pause"></i></button>
+                        
+                          <div id="myPauseModal" class="modal">
+                                  <div class="modal-content">
+                                    <span class="close" id="close2">&times;</span>
+                                      <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 instBox">
+                                                PAUSED:
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: left;">
+                                                Your game has been paused ! You can exit this screen to resume your game.
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                            </div>
+                    </div>
+                    
+                    <div class="col-6" style="text-align: left;">
+                        <button class="btn" style="margin-bottom: 20px; background-color: white;" id="inst"><i class="fa fa-info"></i></button>
+                        
+                          <div id="myInstModal" class="modal">
+                                  <div class="modal-content">
+                                    <span class="close" id="close1">&times;</span>
+
+                                      <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 instBox">
+                                                INSTRUCTIONS:
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: left;">
+                                                Color in the picture such that no adjacent portions are the same color. Make sure to do so before the timer runs out ! You can exit this screen to resume your game.
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row" style = "text-align: center;">
+            <div class="col-12">
+                <div> 
+                <img src="yay.svg" alt="easy_level" id="art">
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row" style = "text-align: center;">
+            <div class="col-2" >
+                <button type="button" class="btn btn-danger color"> </button>
+            </div>
+            <div class="col-2" >
+                <button type="button" class="btn btn-warning color"> </button>
+            </div>
+            <div class="col-2" >
+                <button type="button" class="btn btn-primary color"> </button>
+            </div>
+            
+            <div class="col-6 erasure" style="text-align: right;" >
+                <a href ="">
+                    <img style="width:130px;" src="http://images.clipartpanda.com/pink-eraser-clipart-13471970421371056508erasers-md.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    
+    var instmodal = document.getElementById("myInstModal");
+    var instbtn = document.getElementById("inst");
+    var span1 = document.getElementById("close1");
+    
+    var pausemodal = document.getElementById("myPauseModal");
+    var pausebtn = document.getElementById("pause");
+    var span2 = document.getElementById("close2");
+    
+    instbtn.onclick = function() {
+      instmodal.style.display = "block";
+      pause_clock();
+    }
+    
+    pausebtn.onclick = function() {
+      pausemodal.style.display = "block";
+        pause_clock();
+    }
+    
+    span1.onclick = function() {
+      instmodal.style.display = "none";
+      resume_clock();
+    }
+    
+    span2.onclick = function() {
+      pausemodal.style.display = "none";
+        resume_clock();
+    }
+    
+    window.onclick = function(event) {
+      if (event.target == instmodal) {
+        instmodal.style.display = "none";
+        
+      }
+        
+    if (event.target == pausemodal) {
+        pausemodal.style.display = "none";
+      }
+    }
+   
+    
+var time_in_minutes = 3;
+var current_time = Date.parse(new Date());
+var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+function time_remaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+	return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+}
+
+var timeinterval;
+function run_clock(id,endtime){
+	var clock = document.getElementById(id);
+	function update_clock(){
+		var t = time_remaining(endtime);
+		clock.innerHTML = t.minutes+':'+t.seconds;
+		if(t.total<=0){ alert("you're out of time :( "); return; }
+	}
+	update_clock(); // run function once at first to avoid delay
+	timeinterval = setInterval(update_clock,1000);
+}
+run_clock('clockdiv',deadline);
+
+
+var paused = false; // is the clock paused?
+var time_left; // time left on the clock when paused
+
+function pause_clock(){
+	if(!paused){
+		paused = true;
+		clearInterval(timeinterval); // stop the clock
+		time_left = time_remaining(deadline).total; // preserve remaining time
+	}
+}
+
+function resume_clock(){
+	if(paused){
+		paused = false;
+		deadline = new Date(Date.parse(new Date()) + time_left);
+		run_clock('clockdiv',deadline);
+	}
+}
+//0 = red
+//1 = yellow
+//2 = blue
+    
+var items = [
+  [0, 1],
+  [1, 2],
+  [2, 1]
+];
+console.log(items[0][0]); // 1
+console.log(items);
+    
+</script>
